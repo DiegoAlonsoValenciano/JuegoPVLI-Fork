@@ -15,10 +15,10 @@ export default class Enemy extends Mob
  * @param {string} key clave de la imagen 
  * @param {number} enemyConfig Objeto que guarda la informacion del enemy{life, velocity, damage,minCooldown,maxCooldown}
  * */
-    constructor(scene, x, y, key, pool)
+    constructor(scene, x, y, key, pool, bool)
     {
         //constructor del padre
-        super(scene, x ,y, key,1,1,1,pool);
+        super(scene, x ,y, key,1,1,1,pool, bool);
 
         this._meleeAttackCD = 0;
         this._CDMeleeTimer = 0;

@@ -170,6 +170,7 @@ export default class MainScene extends Phaser.Scene {
         this.enemiesBulletsPool = new Pool(this, 200);
         this.meleeEnemiesPool = new Pool(this, 50);
         this.rangeEnemiesPool = new Pool(this, 50);
+        this.embestirEnemiesPool = new Pool(this, 50);
         this.dustPool = new Pool(this, 100, 'polvos');
         this.totemPool = new Pool(this, 20, 'kirby')
 
@@ -197,7 +198,7 @@ export default class MainScene extends Phaser.Scene {
         let enemysArr = [];
 
         for (let i = 0; i < 100; i++) {
-            let aux = new Enemy(this, 0, 0, ['', 'enemyMove2'], this.meleeEnemiesPool);
+            let aux = new Enemy(this, 0, 0, ['', 'enemyMove2'], this.meleeEnemiesPool, false);
             aux.setDepth(10);
             enemysArr.push(aux);
         }
@@ -213,6 +214,16 @@ export default class MainScene extends Phaser.Scene {
         }
 
         this.rangeEnemiesPool.addMultipleEntity(rangeArr);
+
+        let embestirArr = [];
+
+        for (let i = 0; i < 100; i++) {
+            let aux = new Enemy(this, 0, 0, ['', 'enemyMove2'], this.rangeEnemiesPool, true);
+            aux.setDepth(10);
+            embestirArr.push(aux);
+        }
+
+        this.embestirEnemiesPool.addMultipleEntity(embestirArr);
 
         let dustArr = [];
 
@@ -412,6 +423,12 @@ export default class MainScene extends Phaser.Scene {
         this.anims.create({
             key: 'enemyMove4',
             frames: this.anims.generateFrameNumbers('enemy4', { start: 0, end: 7 }),
+            frameRate: 10, // Velocidad de la animación
+            repeat: -1    // Animación en bucle
+        });
+        this.anims.create({
+            key: 'enemyMove5',
+            frames: this.anims.generateFrameNumbers('enemy5', { start: 0, end: 8 }),
             frameRate: 10, // Velocidad de la animación
             repeat: -1    // Animación en bucle
         });

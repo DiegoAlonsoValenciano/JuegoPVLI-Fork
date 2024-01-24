@@ -15,7 +15,7 @@ export default class Mob extends Phaser.GameObjects.Sprite{
      * @param {number} speed velocidad de movimiento de la entidad
      * @param {Pool} pool pool a la que pertenece el objeto
      */
-    constructor(scene,x,y,key,hp,damage,speed, pool){
+    constructor(scene,x,y,key,hp,damage,speed, pool, bool){
 
         super(scene,x,y,key);
         this.key = key;
@@ -24,6 +24,8 @@ export default class Mob extends Phaser.GameObjects.Sprite{
         this.dir;
         this.speed = speed;
         this.pool = pool;
+        this.embestir = bool;
+        this.tiempo = 5;
 
         //añadirlo a la escena
         this.scene.add.existing(this);
@@ -34,11 +36,17 @@ export default class Mob extends Phaser.GameObjects.Sprite{
 
 
     /** @description Mueve el personaje y reproduce su animación de movimient se debe ajustar la dirección y la velicidad de forma externa*/
-    Move(){
+    Move(t, dt){
 
         if(this.health < 0) return;
         //movimiento del objeto
-        this.body.setVelocity(this.dir.x*this.speed,this.dir.y*this.speed);
+        if(this.embestir && this.tiempo <=0){
+            this.body.setVelocity(this.dir.x*this.speed,this.dir.y*this.speed);
+        }
+        else if(!this.embestir){
+            this.body.setVelocity(this.dir.x*this.speed,this.dir.y*this.speed);
+        }
+        
 
         //animacion de movimiento
         if(this.key !== 'kirby' && this.key !== 'bulletPlayer' && this.key !== 'bulletEnemy'){//si no somos una bala
@@ -50,6 +58,10 @@ export default class Mob extends Phaser.GameObjects.Sprite{
             else{//animacion de movimiento
                 this.play(this.key[1],true);//continuar la animacion
             }
+        }
+
+        if(this.embestir){
+            this.tiempo = this.tiempo - 1*dt;
         }
     }
 

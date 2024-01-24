@@ -16,7 +16,7 @@ export default class RangeEnemy extends Enemy
  * */
     constructor(scene, x, y, key, pool)
     {
-        super(scene, x, y, key, pool);
+        super(scene, x, y, key, pool, false);
 
         this._range;
         this._rangeDamage = 0;
