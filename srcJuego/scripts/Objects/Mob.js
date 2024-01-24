@@ -42,6 +42,7 @@ export default class Mob extends Phaser.GameObjects.Sprite{
         //movimiento del objeto
         if(this.embestir && this.tiempo <=0){
             this.body.setVelocity(this.dir.x*this.speed,this.dir.y*this.speed);
+            this.tiempo = 5;
         }
         else if(!this.embestir){
             this.body.setVelocity(this.dir.x*this.speed,this.dir.y*this.speed);

@@ -16,6 +16,8 @@ export default class Waves extends Phaser.GameObjects.GameObject{
 
         this.rangeEnemiesPool = this.scene.scene.get("level").rangeEnemiesPool;
 
+        this.embestirEnemiesPool = this.scene.scene.get("level").embestirEnemiesPool;
+
         this.player   = this.scene.scene.get("level").player;
 
         this.spawnPoints = this.scene.scene.get("level").spawnPoints;
@@ -166,6 +168,9 @@ export default class Waves extends Phaser.GameObjects.GameObject{
             }
             else if (spawnData.type == "range") {
                 this.rangeEnemiesPool.spawn(spawnPos.x, spawnPos.y, spawnData.animKey, this.data.RangeConfigs[configIndex]);
+            }
+            else if(spawnData.type == "embestir"){
+                this.embestirEnemiesPool.spawn(spawnPos.x, spawnPos.y, spawnData.animKey, this.data.EmbestirConfigs[configIndex]);
             }
 
 

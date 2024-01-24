@@ -21,6 +21,11 @@
 
             "range": 200,"rangeDamage": 15,"minRangeAttackCD": 1500,"maxRangeAttackCD": 2000,"bulletSpeed": 200
         }
+    ],
+
+    "EmbestirConfigs":[
+        {"life": 20,  "damage": 15, "velocity": 1000,"meleeAttackCD": 500}
     ]
+
     
 }
