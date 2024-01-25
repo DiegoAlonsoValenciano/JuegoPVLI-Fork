@@ -18,11 +18,7 @@ export default class Enemy extends Mob
     constructor(scene, x, y, key, pool, bool)
     {
         //constructor del padre
-        let v = 1;
-        if(bool){
-            v = 10;
-        }
-        super(scene, x ,y, key,1,1,v,pool, bool);
+        super(scene, x ,y, key,1,1,1,pool, bool);
 
         this._meleeAttackCD = 0;
         this._CDMeleeTimer = 0;
@@ -33,12 +29,13 @@ export default class Enemy extends Mob
         this.scene.add.existing(this);
 
         //cambiar magic number por cte
-
-        //ajustar el tamaño del colider
-        this.body.setSize(40,60,false);
-        //ajustar el offset del colider
-        this.body.setOffset(82,116);
-
+        if(!bool){
+            //ajustar el tamaño del colider
+            this.body.setSize(40,60,false);
+            //ajustar el offset del colider
+            this.body.setOffset(82,116);
+        }
+        
         //margen para flipear el sprite
         this.flipMargin = 30;
 

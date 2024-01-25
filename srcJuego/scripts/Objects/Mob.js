@@ -25,7 +25,7 @@ export default class Mob extends Phaser.GameObjects.Sprite{
         this.speed = speed;
         this.pool = pool;
         this.embestir = bool;
-        this.tiempo = 5;
+        this.tiempo = 0;
 
         //añadirlo a la escena
         this.scene.add.existing(this);
@@ -36,19 +36,13 @@ export default class Mob extends Phaser.GameObjects.Sprite{
 
 
     /** @description Mueve el personaje y reproduce su animación de movimient se debe ajustar la dirección y la velicidad de forma externa*/
-    Move(t, dt){
+    Move(){
 
         if(this.health < 0) return;
         //movimiento del objeto
-        if(this.embestir && this.tiempo <=0){
-            this.body.setVelocity(this.dir.x*this.speed,this.dir.y*this.speed);
-            this.tiempo = 5;
-        }
-        else if(!this.embestir){
-            this.body.setVelocity(this.dir.x*this.speed,this.dir.y*this.speed);
-        }
         
-
+        this.body.setVelocity(this.dir.x*this.speed,this.dir.y*this.speed);
+        
         //animacion de movimiento
         if(this.key !== 'kirby' && this.key !== 'bulletPlayer' && this.key !== 'bulletEnemy'){//si no somos una bala
             //animacion de idle
@@ -62,7 +56,11 @@ export default class Mob extends Phaser.GameObjects.Sprite{
         }
 
         if(this.embestir){
-            this.tiempo = this.tiempo - 1*dt;
+            this.tiempo = this.tiempo - 1;
+            if(this.tiempo < 0){
+                this.tiempo = 300;
+            }
+            
         }
     }
 
@@ -87,7 +85,10 @@ export default class Mob extends Phaser.GameObjects.Sprite{
     /**Cambia la direccion y la normaliza
      * @param {Phaser.Math.Vector2D} direccion direccion a la que se quiere ajustar la velocidad */
     SetDirection(direccion){
-        this.dir = direccion.normalize();
+        if(!this.embestir || this.tiempo <=0){
+            this.dir = direccion.normalize();
+        }
+        
     }
     //dejo este metodo vacio porque realmente cada hijo tiene un comportamiento especifico al ser golpeado
     /**@virtual */

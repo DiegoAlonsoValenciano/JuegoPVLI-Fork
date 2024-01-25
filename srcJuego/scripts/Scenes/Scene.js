@@ -218,7 +218,7 @@ export default class MainScene extends Phaser.Scene {
         let embestirArr = [];
 
         for (let i = 0; i < 100; i++) {
-            let aux = new Enemy(this, 0, 0, ['', 'enemyMove2'], this.rangeEnemiesPool, true);
+            let aux = new Enemy(this, 0, 0, ['', 'enemyMove2'], this.embestirEnemiesPool, true);
             aux.setDepth(10);
             embestirArr.push(aux);
         }
@@ -256,9 +256,9 @@ export default class MainScene extends Phaser.Scene {
         this.physics.add.collider(this.meleeEnemiesPool.group, this.meleeEnemiesPool.group);
         this.physics.add.collider(this.rangeEnemiesPool.group, this.rangeEnemiesPool.group);
         this.physics.add.collider(this.meleeEnemiesPool.group, this.rangeEnemiesPool.group);
-        this.physics.add.collider(this.embestirEnemiesPool.group, this.meleeEnemiesPool.group);
-        this.physics.add.collider(this.embestirEnemiesPool.group, this.rangeEnemiesPool.group);
-        this.physics.add.collider(this.embestirEnemiesPool.group, this.embestirEnemiesPool.group);
+        //this.physics.add.collider(this.embestirEnemiesPool.group, this.meleeEnemiesPool.group);
+        //this.physics.add.collider(this.embestirEnemiesPool.group, this.rangeEnemiesPool.group);
+        //this.physics.add.collider(this.embestirEnemiesPool.group, this.embestirEnemiesPool.group);
         //colisiones entre las balas del jugador y los enemigos melee
         this.physics.add.collider(this.playerBulletsPool.group, this.meleeEnemiesPool.group, function (proyectle, enemy) {
             let dmg1 = proyectle.damage;
@@ -351,6 +351,7 @@ export default class MainScene extends Phaser.Scene {
         this.physics.add.collider(this.player, this.wallLayer);
         this.physics.add.collider(this.meleeEnemiesPool.group, this.wallLayer);
         this.physics.add.collider(this.rangeEnemiesPool.group, this.wallLayer);
+        this.physics.add.collider(this.embestirEnemiesPool.group, this.wallLayer);
 
 
         //faltan las colisiones de las balas con las paredes

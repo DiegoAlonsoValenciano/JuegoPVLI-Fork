@@ -24,7 +24,7 @@
     ],
 
     "EmbestirConfigs":[
-        {"life": 20,  "damage": 15, "velocity": 1000,"meleeAttackCD": 500}
+        {"life": 20,  "damage": 15, "velocity": 150,"meleeAttackCD": 500}
     ]
 
     
