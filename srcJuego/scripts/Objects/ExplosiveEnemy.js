@@ -4,11 +4,11 @@ export default class ExplisiveEnemy extends Enemy{
     constructor(scene, x, y, key, pool)
     {
         super(scene, x, y, key, pool, false);
-        this.explT = 500;
-         //ajustar el tamaño del colider
-         //this.body.setSize(40,60,false);
-         //ajustar el offset del colider
-         //this.body.setOffset(82,116);
+        this.explT = 400;
+        //ajustar el tamaño del colider
+        this.body.setSize(32,32,false);
+        //ajustar el offset del colider
+        this.body.setOffset(0,0);
     }
 
     preUpdate(t,dt){

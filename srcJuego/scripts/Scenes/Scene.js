@@ -498,6 +498,7 @@ export default class MainScene extends Phaser.Scene {
             key: 'explosion',
             frames: this.anims.generateFrameNumbers('boom', { start: 0, end: 2 }),
             frameRate: 5, // Velocidad de la animación
+            repeat: 0   // Animación en bucle
         });
     }
 
