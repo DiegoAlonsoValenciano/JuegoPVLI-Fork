@@ -172,6 +172,9 @@ export default class Waves extends Phaser.GameObjects.GameObject{
             else if(spawnData.type == "embestir"){
                 this.embestirEnemiesPool.spawn(spawnPos.x, spawnPos.y, spawnData.animKey, this.data.EmbestirConfigs[configIndex]);
             }
+            else if(spawnData.type == "embestir"){
+                this.explosiveEnemiesPool.spawn(spawnPos.x, spawnPos.y, spawnData.animKey, this.data.ExplosiveConfigs[configIndex]);
+            }
 
 
             //si no es masilla, reducimos el size

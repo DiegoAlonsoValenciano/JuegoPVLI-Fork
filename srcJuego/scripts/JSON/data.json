@@ -25,6 +25,10 @@
 
     "EmbestirConfigs":[
         {"life": 20,  "damage": 15, "velocity": 150,"meleeAttackCD": 500}
+    ],
+
+    "ExplosiveConfigs":[
+        {"life": 25,  "damage": 30, "velocity": 110,"meleeAttackCD": 500}
     ]
 
     

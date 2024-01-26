@@ -109,6 +109,12 @@ export default class BootScene extends Phaser.Scene{
         this.load.spritesheet('enemy5', srcJuego + '/sprites/Enemy5/walk-Sheet.png',
         { frameWidth: 32, frameHeight:32});
 
+        this.load.spritesheet('enemy6', srcJuego + '/sprites/Enemy6/walk-Sheet.png',
+        { frameWidth: 32, frameHeight:32});
+
+        this.load.spritesheet('boom', srcJuego + '/sprites/Explosion/explosion.png',
+        { frameWidth: 32, frameHeight:32});
+
         //carga del tilemap
         this.load.tilemapTiledJSON('tilemap', srcJuego + '/tiled/prueba2.json');
 

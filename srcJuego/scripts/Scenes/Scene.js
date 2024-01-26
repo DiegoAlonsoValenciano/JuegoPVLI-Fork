@@ -9,6 +9,7 @@ import Card from '../UI_Objects/Card.js'
 import Dust from '../Objects/Dust.js'
 import Totem from '../Objects/Totem.js'
 import Waves from '../Waves.js'
+import ExplisiveEnemy from '../Objects/ExplosiveEnemy.js'
 
 export default class MainScene extends Phaser.Scene {
     constructor() {
@@ -171,6 +172,7 @@ export default class MainScene extends Phaser.Scene {
         this.meleeEnemiesPool = new Pool(this, 50);
         this.rangeEnemiesPool = new Pool(this, 50);
         this.embestirEnemiesPool = new Pool(this, 50);
+        this.explosiveEnemiesPool = new Pool(this, 50);
         this.dustPool = new Pool(this, 100, 'polvos');
         this.totemPool = new Pool(this, 20, 'kirby')
 
@@ -225,6 +227,16 @@ export default class MainScene extends Phaser.Scene {
 
         this.embestirEnemiesPool.addMultipleEntity(embestirArr);
 
+        let explosiveArr = [];
+
+        for (let i = 0; i < 100; i++) {
+            let aux = new ExplisiveEnemy(this, 0, 0, ['', 'enemyMove2'], this.explosiveEnemiesPool);
+            aux.setDepth(10);
+            explosiveArr.push(aux);
+        }
+
+        this.explosiveEnemiesPool.addMultipleEntity(explosiveArr);
+
         let dustArr = [];
 
         for (let i = 0; i < 100; i++) {
@@ -256,9 +268,11 @@ export default class MainScene extends Phaser.Scene {
         this.physics.add.collider(this.meleeEnemiesPool.group, this.meleeEnemiesPool.group);
         this.physics.add.collider(this.rangeEnemiesPool.group, this.rangeEnemiesPool.group);
         this.physics.add.collider(this.meleeEnemiesPool.group, this.rangeEnemiesPool.group);
-        //this.physics.add.collider(this.embestirEnemiesPool.group, this.meleeEnemiesPool.group);
-        //this.physics.add.collider(this.embestirEnemiesPool.group, this.rangeEnemiesPool.group);
-        //this.physics.add.collider(this.embestirEnemiesPool.group, this.embestirEnemiesPool.group);
+
+        this.physics.add.collider(this.explosiveEnemiesPool.group, this.meleeEnemiesPool.group);
+        this.physics.add.collider(this.explosiveEnemiesPool.group, this.rangeEnemiesPool.group);
+        this.physics.add.collider(this.explosiveEnemiesPool.group, this.embestirEnemiesPool.group);
+        this.physics.add.collider(this.explosiveEnemiesPool.group, this.explosiveEnemiesPool.group);
         //colisiones entre las balas del jugador y los enemigos melee
         this.physics.add.collider(this.playerBulletsPool.group, this.meleeEnemiesPool.group, function (proyectle, enemy) {
             let dmg1 = proyectle.damage;
@@ -278,6 +292,14 @@ export default class MainScene extends Phaser.Scene {
             //enemy.scene.hitSound.play();
         });
         this.physics.add.collider(this.playerBulletsPool.group, this.embestirEnemiesPool.group, function (proyectle, enemy) {
+            let dmg1 = proyectle.damage;
+            let dmg2 = enemy.health;
+            enemy.Hit(dmg1);
+            proyectle.Hit(dmg2, false);
+            enemy.scene.player.addEureka()
+            //enemy.scene.hitSound.play();
+        });
+        this.physics.add.collider(this.playerBulletsPool.group, this.explosiveEnemiesPool.group, function (proyectle, enemy) {
             let dmg1 = proyectle.damage;
             let dmg2 = enemy.health;
             enemy.Hit(dmg1);
@@ -306,6 +328,17 @@ export default class MainScene extends Phaser.Scene {
                 player.Hit(enemy.damage, 1);
                 enemy._CDMeleeTimer = enemy._meleeAttackCD;
                 player.addRage();
+            }
+        });
+        this.physics.add.collider(this.player, this.explosiveEnemiesPool.group, function (player, enemy) {
+
+            // Si el enemigo está listo para atacar, el player recibe un golpe y se reinicia el cooldown del ataque del enemigo.
+            if (enemy._CDMeleeTimer <= 0) {
+                //console.log(enemy);
+                player.Hit(enemy.damage, 1);
+                enemy._CDMeleeTimer = enemy._meleeAttackCD;
+                player.addRage();
+                enemy.Explosion();
             }
         });
 
@@ -352,6 +385,7 @@ export default class MainScene extends Phaser.Scene {
         this.physics.add.collider(this.meleeEnemiesPool.group, this.wallLayer);
         this.physics.add.collider(this.rangeEnemiesPool.group, this.wallLayer);
         this.physics.add.collider(this.embestirEnemiesPool.group, this.wallLayer);
+        this.physics.add.collider(this.explosiveEnemiesPool.group, this.wallLayer);
 
 
         //faltan las colisiones de las balas con las paredes
@@ -450,9 +484,20 @@ export default class MainScene extends Phaser.Scene {
         });
         this.anims.create({
             key: 'enemyMove5',
-            frames: this.anims.generateFrameNumbers('enemy5', { start: 0, end: 8 }),
+            frames: this.anims.generateFrameNumbers('enemy5', { start: 0, end: 7 }),
             frameRate: 10, // Velocidad de la animación
             repeat: -1    // Animación en bucle
+        });
+        this.anims.create({
+            key: 'enemyMove6',
+            frames: this.anims.generateFrameNumbers('enemy6', { start: 0, end: 7 }),
+            frameRate: 10, // Velocidad de la animación
+            repeat: -1    // Animación en bucle
+        });
+        this.anims.create({
+            key: 'explosion',
+            frames: this.anims.generateFrameNumbers('boom', { start: 0, end: 2 }),
+            frameRate: 5, // Velocidad de la animación
         });
     }
 
