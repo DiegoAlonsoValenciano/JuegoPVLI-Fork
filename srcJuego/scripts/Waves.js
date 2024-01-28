@@ -271,6 +271,18 @@ export default class Waves extends Phaser.GameObjects.GameObject{
             this.data.RangeConfigs[i].settingMelee.velocity *= (1 +(this.scaleSpeedFactor*this.currentWave)); 
             this.data.RangeConfigs[i].rangeDamage *= (1 +(this.scaleRangeEnemyRangeDamageFactor*this.currentWave)); 
         }
+
+        for(let i = 0; i < this.data.EmbestirConfigs.length;i++){
+            this.data.EnemyConfigs[i].life *= (1 +(this.scaleMeleeLifeFactor*this.currentWave)); 
+            this.data.EnemyConfigs[i].damage *= (1 +(this.scaleMeleeDamageFactor*this.currentWave)); 
+            this.data.EnemyConfigs[i].velocity *= (1 +(this.scaleSpeedFactor*this.currentWave));
+        }
+
+        for(let i = 0; i < this.data.ExplosiveConfigs.length;i++){
+            this.data.EnemyConfigs[i].life *= (1 +(this.scaleMeleeLifeFactor*this.currentWave)); 
+            this.data.EnemyConfigs[i].damage *= (1 +(this.scaleMeleeDamageFactor*this.currentWave)); 
+            this.data.EnemyConfigs[i].velocity *= (1 +(this.scaleSpeedFactor*this.currentWave));
+        }
     }
 
 
