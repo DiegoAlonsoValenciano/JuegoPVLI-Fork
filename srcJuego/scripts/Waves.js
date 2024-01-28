@@ -45,15 +45,15 @@ export default class Waves extends Phaser.GameObjects.GameObject{
 
         //escalado por rondas
         //0,1 = 10%
-        this.scaleMeleeLifeFactor = 0.12;
-        this.scaleMeleeDamageFactor = 0.12;
-        this.scaleSpeedFactor = 0.08;
+        this.scaleMeleeLifeFactor = 0.08;
+        this.scaleMeleeDamageFactor = 0.08;
+        this.scaleSpeedFactor = 0.06;
 
 
-        this.scaleRangeLifeFactor = 0.12;
-        this.scaleRangeEnemyRangeDamageFactor = 0.12;
+        this.scaleRangeLifeFactor = 0.08;
+        this.scaleRangeEnemyRangeDamageFactor = 0.08;
 
-        this.scaleWaveNumberFactor = 0.07;
+        this.scaleWaveNumberFactor = 0.05;
 
     }
 
@@ -260,6 +260,17 @@ export default class Waves extends Phaser.GameObjects.GameObject{
     }
 
     scaleDatas(){
+        if(this.currentWave%5 == 0){//cada cinco oleadas aumenta un poco mas el porcentaje de aumento de caracteristicas
+            this.scaleMeleeLifeFactor += 0.03;
+            this.scaleMeleeDamageFactor += 0.03;
+            this.scaleSpeedFactor += 0.01;
+
+
+            this.scaleRangeLifeFactor += 0.03;
+            this.scaleRangeEnemyRangeDamageFactor += 0.03;
+
+            this.scaleWaveNumberFactor += 0.03;
+        }
         for(let i = 0; i < this.data.EnemyConfigs.length;i++){
             this.data.EnemyConfigs[i].life *= (1 +(this.scaleMeleeLifeFactor*this.currentWave)); 
             this.data.EnemyConfigs[i].damage *= (1 +(this.scaleMeleeDamageFactor*this.currentWave)); 
